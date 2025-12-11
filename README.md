@@ -1,4 +1,4 @@
-1D Wave Equation Solver (Fortran + OpenMP)
+# 1D Wave Equation Solver (Fortran + OpenMP)
 
 ![Language](https://img.shields.io/badge/Fortran-Modern-734f96?style=flat&logo=fortran)
 ![Parallelism](https://img.shields.io/badge/OpenMP-Enabled-blue)
@@ -161,7 +161,7 @@ gnuplot plot.gnu
 
 Se generará el archivo `grafica_onda.png`.
 
-## 🧹 Limpieza
+## Limpieza
 
 ```bash
 make clean
