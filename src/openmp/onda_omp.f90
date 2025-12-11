@@ -12,11 +12,25 @@ program ecuacion_onda_omp
     real(dp) :: start_time, end_time ! Para medir rendimiento
     
     ! --- PARÁMETROS ---
+    ! c = 2.0_dp
+    ! L = 1.0_dp
+    ! dx = 0.1_dp        
+    ! dt = 0.05_dp       
+    ! T_max = 20.0_dp
+
+ 
+! --- PARÁMETROS DE ALTA RESOLUCIÓN ---
     c = 2.0_dp
     L = 1.0_dp
-    dx = 0.1_dp        
-    dt = 0.05_dp       
-    T_max = 20.0_dp    
+    
+    ! Hacemos la malla 10 veces más fina
+    dx = 0.01_dp         
+    
+    ! Ajustamos el tiempo para que CFL siga siendo estable (CFL = 1.0)
+    ! c * dt / dx <= 1  ->  2 * dt / 0.01 <= 1  -> dt <= 0.005
+    dt = 0.005_dp        
+    
+    T_max = 20.0_dp
     
     pi_val = 4.0_dp * atan(1.0_dp)
     
