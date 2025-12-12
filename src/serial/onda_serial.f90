@@ -7,13 +7,23 @@ program ecuacion_onda
     real(dp) :: c, L, T_max, dx, dt, cfl, pi
     real(dp), allocatable :: u_prev(:), u_curr(:), u_next(:), x(:)
     real(dp) :: time
+    real(dp) :: t_inicio, t_final
     
-    ! --- PARÁMETROS ---
-    c = 2.0_dp          ! Velocidad
-    L = 1.0_dp          ! Longitud del dominio
-    dx = 0.1_dp         ! Paso espacial (h)
-    dt = 0.05_dp        ! Paso temporal (tau)
-    T_max = 20.0_dp     ! Tiempo final de simulación
+    
+    ! ! --- PARÁMETROS ---
+    ! c = 2.0_dp          ! Velocidad
+    ! L = 1.0_dp          ! Longitud del dominio
+    ! dx = 0.1_dp         ! Paso espacial (h)
+    ! dt = 0.05_dp        ! Paso temporal (tau)
+    ! T_max = 20.0_dp     ! Tiempo final de simulación
+
+    ! --- PARÁMETROS DE ESTRÉS ---
+    c = 2.0_dp
+    L = 1.0_dp
+    dx = 0.0001_dp        
+    dt = 0.00005_dp       
+    T_max = 1.1_dp
+
     
     ! Constantes
     pi = 4.0_dp * atan(1.0_dp)
@@ -24,6 +34,9 @@ program ecuacion_onda
     
     ! Asignación de memoria
     allocate(u_prev(nx), u_curr(nx), u_next(nx), x(nx))
+
+    ! --- INICIO DEL RELOJ ---
+    call cpu_time(t_inicio)
     
     ! Cálculo del CFL
     cfl = (c * dt) / dx
@@ -100,5 +113,13 @@ program ecuacion_onda
     
     close(10)
     print *, "Calculo finalizado. Datos guardados en 'datos_onda.dat'"
+
+    ! --- FIN DEL RELOJ ---
+    call cpu_time(t_final)
+    
+    print *, "========================================"
+    print *, "Ejecucion SERIAL completada."
+    print *, "Tiempo de computo (s): ", t_final - t_inicio
+    print *, "========================================"
     
 end program ecuacion_onda

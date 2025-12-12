@@ -7,6 +7,28 @@
 
 Este repositorio contiene una implementación numérica de alto rendimiento para resolver la ecuación de onda unidimensional. El proyecto compara una implementación serial clásica contra una paralelizada con **OpenMP**, analizando la estabilidad numérica y el número de Courant (CFL).
 
+## Resultados y Visualización
+
+**Evolución de la Onda (t=0 a t=20)**
+![Simulación de Onda](images/grafica_onda.png)
+*(Visualización generada con Gnuplot mostrando la propagación en el dominio)*
+
+## Resultados de Rendimiento (Benchmark)
+
+Se realizaron pruebas de estrés ("stress testing") con una malla fina para evaluar la escalabilidad del solver.
+
+**Parámetros de la Prueba:**
+* **Malla Espacial ($N_x$):** 10,000 puntos ($\Delta x = 10^{-4}$)
+* **Pasos de Tiempo ($N_t$):** ~22,000 iteraciones ($\Delta t = 5 \cdot 10^{-5}$)
+* **Hardware:** Apple Silicon (8 Hilos)
+
+| Implementación | Hilos (Threads) | Tiempo de Ejecución | Speedup (Aceleración) |
+| :--- | :---: | :---: | :---: |
+| **Serial** (Base) | 1 | 23.28 s | 1.0x |
+| **OpenMP** (Paralelo) | 8 | **1.01 s** | **23.1x** |
+
+> **Análisis Técnico:** Se observa un comportamiento de **Speedup Superlineal**. Esto ocurre porque la descomposición de dominio permite que los sub-arreglos locales de cada hilo encajen eficientemente en la memoria Caché (L1/L2) del procesador, reduciendo drásticamente la latencia de acceso a memoria (RAM) comparado con la versión serial.
+
 ## Descripción del Problema
 
 Se resuelve la ecuación diferencial parcial hiperbólica para una cuerda vibrante:

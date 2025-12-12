@@ -19,19 +19,27 @@ program ecuacion_onda_omp
     ! T_max = 20.0_dp
 
  
-! --- PARÁMETROS DE ALTA RESOLUCIÓN ---
+    ! --- PARÁMETROS DE ALTA RESOLUCIÓN ---
+!     c = 2.0_dp
+!     L = 1.0_dp
+    
+!     ! Hacemos la malla 10 veces más fina
+!     dx = 0.01_dp         
+    
+!     ! Ajustamos el tiempo para que CFL siga siendo estable (CFL = 1.0)
+!     ! c * dt / dx <= 1  ->  2 * dt / 0.01 <= 1  -> dt <= 0.005
+!     dt = 0.005_dp        
+    
+!     T_max = 20.0_dp
+
+
+    ! --- PARÁMETROS DE ESTRÉS ---
     c = 2.0_dp
     L = 1.0_dp
-    
-    ! Hacemos la malla 10 veces más fina
-    dx = 0.01_dp         
-    
-    ! Ajustamos el tiempo para que CFL siga siendo estable (CFL = 1.0)
-    ! c * dt / dx <= 1  ->  2 * dt / 0.01 <= 1  -> dt <= 0.005
-    dt = 0.005_dp        
-    
-    T_max = 20.0_dp
-    
+    dx = 0.0001_dp        
+    dt = 0.00005_dp       
+    T_max = 1.1_dp
+   
     pi_val = 4.0_dp * atan(1.0_dp)
     
     ! Cálculo de puntos de malla
@@ -99,8 +107,10 @@ program ecuacion_onda_omp
     ! --- FIN MEDICIÓN DE TIEMPO ---
     end_time = omp_get_wtime()
     
-    print *, "Simulacion OpenMP finalizada."
-    print *, "Hilos usados: ", omp_get_max_threads()
-    print *, "Tiempo de ejecucion (s): ", end_time - start_time
+    print *, "========================================"
+    print *, "Ejecucion PARALELA (OpenMP) completada."
+    print *, "Hilos utilizados: ", omp_get_max_threads()
+    print *, "Tiempo de computo (s): ", end_time - start_time
+    print *, "========================================"
     
 end program ecuacion_onda_omp

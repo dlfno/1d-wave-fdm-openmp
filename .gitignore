@@ -1,0 +1,13 @@
+# Ignorar binarios y objetos
+onda
+*.o
+*.mod
+
+# Ignorar archivos de datos grandes
+*.dat
+
+# Ignorar archivos del sistema
+.DS_Store
+
+!images
+datos_onda.dat
